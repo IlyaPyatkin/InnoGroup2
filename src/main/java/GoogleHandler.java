@@ -1,10 +1,11 @@
-import java.util.HashSet;
-import java.util.Set;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class GoogleHandler extends WebHandler{
+import java.util.HashSet;
+import java.util.Set;
+
+public class GoogleHandler extends AWebHandler {
     private static GoogleHandler obj = new GoogleHandler();
 
     public static GoogleHandler getHandler() {
@@ -18,7 +19,7 @@ public class GoogleHandler extends WebHandler{
             request += "&as_sitesearch=" + website;
 
         Document doc = webRequest(request);
-        if(doc == null)
+        if (doc == null)
             return null;
         Elements linkNames = doc.getElementsByTag("cite");
         for (Element link : linkNames)
