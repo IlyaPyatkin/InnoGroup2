@@ -12,9 +12,9 @@ public class GoogleHandler extends AWebHandler {
         return obj;
     }
 
-    public Set<String> getData(String query, String website) {
+    public Set<String> getData(String query, int num, String website) {
         Set<String> result = new HashSet<String>();
-        String request = "https://www.google.com/search?q=" + query + "&num=5";
+        String request = "https://www.google.com/search?q=" + query + "&num=" + num;
         if (!website.equals(""))
             request += "&as_sitesearch=" + website;
 
