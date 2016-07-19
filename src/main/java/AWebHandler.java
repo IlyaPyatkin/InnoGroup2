@@ -34,7 +34,7 @@ abstract public class AWebHandler {
             doc = Jsoup
                     .connect(url)
                     .userAgent("Mozilla/5.0")
-                    .timeout(5000).get();
+                    .timeout(50000).get();
         } catch (IOException e) {
             e.printStackTrace();
             doc = null;
