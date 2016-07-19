@@ -7,6 +7,7 @@ public class TestAssertions {
         assertEquals(AWebHandler.getDomainName("twitter.com/user/uesr"), "twitter.com");
     }
 
+    @Test
     public void testPerson() {
         Person person = new Person();
         person.attr("attr", "value");
