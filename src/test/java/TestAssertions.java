@@ -13,4 +13,11 @@ public class TestAssertions {
         person.attr("attr", "value");
         assertEquals(person.attr("attr"), "value");
     }
+
+    @Test
+    public void testTwitterHandler() {
+        TwitterHandler twitterHandler = TwitterHandler.getHandler();
+        assertEquals(twitterHandler.getUsername("https://twitter.com/name123/with_replies"),
+                "name123");
+    }
 }
