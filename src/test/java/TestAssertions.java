@@ -19,5 +19,9 @@ public class TestAssertions {
         TwitterHandler twitterHandler = TwitterHandler.getHandler();
         assertEquals(twitterHandler.getUsername("https://twitter.com/name123/with_replies"),
                 "name123");
+
+        assertTrue(twitterHandler.isProfileUrl("http://twitter.com/name123"));
+        assertFalse(twitterHandler.isProfileUrl("http://twitter.com/name123/tweets"));
+        assertFalse(twitterHandler.isProfileUrl("http://twitter.com/"));
     }
 }

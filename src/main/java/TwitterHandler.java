@@ -24,6 +24,24 @@ public class TwitterHandler extends AWebHandler {
         return null;
     }
 
+    public String getProfileUrl(String username) {
+        return "http://twitter.com" + username;
+    }
+
+    public boolean isProfileUrl(String url) {
+        String[] tokens = url.split("/");
+        for (int i = 0; i < tokens.length; i++) {
+            if (tokens[i].equalsIgnoreCase("twitter.com")) {
+                if (i + 2 < tokens.length)
+                    break;
+                if (i + 1 < tokens.length)
+                    return true;
+                break;
+            }
+        }
+        return false;
+    }
+
     public String getName(String url) {
         Document doc = webRequest(url);
         if (doc == null)
