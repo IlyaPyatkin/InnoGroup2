@@ -1,13 +1,18 @@
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Person {
-    private HashMap<String, String> attributes = new HashMap<String, String>();
+    private HashMap<String, LinkedList<String>> attributes = new HashMap<String, LinkedList<String>>();
 
-    public String attr(String a) {
-        return attributes.get(a);
+    public String[] get(String attr) {
+        LinkedList<String> list = attributes.get(attr);
+        return list.toArray(new String[list.size()]);
     }
 
-    public void attr(String a, String anew) {
-        attributes.put(a, anew);
+    public void add(String attr, String value) {
+        LinkedList<String> list = attributes.get(attr);
+        if (list == null)
+            attributes.put(attr, new LinkedList<String>());
+        attributes.get(attr).add(value);
     }
 }
