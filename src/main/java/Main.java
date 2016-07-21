@@ -7,19 +7,22 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String search;
         //search= sc.nextLine();
-        search = "freddiew";
+        search = "Alberto Sillitti";
 
-        GoogleHandler gHandler = GoogleHandler.getHandler();
-        Set<String> result = gHandler.getData(search, 1, "twitter.com");
+        GoogleHandler google = GoogleHandler.getHandler();
+        TwitterHandler twitter = TwitterHandler.getHandler();
+        Set<String> result = google.getData(search, 5, "twitter.com");
         for (String str : result) {
-            person.attr("twitter", str);
-            TwitterHandler tHandler = TwitterHandler.getHandler();
-
-            System.out.println(tHandler.isProfileUrl(str));
-            Set<String> twitterLinks = tHandler.getLinks("http://twitter.com/" + tHandler.getUsername(str));
-            for (String link : twitterLinks)
-                    System.out.println(link);
-            //AWebHandler.openWebpage(str);
+            if(twitter.isProfileUrl(str)) {
+                person.add("twitter", str);
+                person.add("nick", twitter.getUsername(str));
+                person.add("name", twitter.getName(str));
+                break;
+            }
         }
+        Set<String> twitterLinks = twitter.getLinks(person.get("twitter")[0]);
+        for (String link : twitterLinks)
+            System.out.println(link);
+        AWebHandler.openWebpage(person.get("twitter")[0]);
     }
 }
