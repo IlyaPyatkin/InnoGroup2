@@ -28,7 +28,7 @@ abstract public class AWebHandler {
     }
 
     protected static Document webRequest(String url) {
-        System.out.println("Sending request: " + url);
+        System.out.println("Sending request:\n" + url);
         Document doc;
         try {
             doc = Jsoup
