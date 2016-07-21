@@ -10,8 +10,8 @@ public class TestAssertions {
     @Test
     public void testPerson() {
         Person person = new Person();
-        person.attr("attr", "value");
-        assertEquals(person.attr("attr"), "value");
+        person.add("attr", "value");
+        assertEquals(person.get("attr")[0], "value");
     }
 
     @Test
