@@ -24,8 +24,6 @@ public class Main {
             }
         }
         if (person.get("twitter") != null) {
-            for (String link : twitter.getLinks(person.get("twitter")[0]))
-                AWebHandler.openWebpage(link);
             AWebHandler.openWebpage(person.get("twitter")[0]);
         }
 
