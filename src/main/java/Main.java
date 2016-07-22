@@ -5,9 +5,11 @@ public class Main {
     public static void main(String[] args) {
         Person person = new Person();
         Scanner sc = new Scanner(System.in);
+        System.out.println("\nEnter name or login of who you're looking for:");
         String search;
-        //search= sc.nextLine();
-        search = "Alberto Sillitti";
+        search= sc.nextLine();
+        sc.close();
+        //search = "Alberto Sillitti";
 
         GoogleHandler google = GoogleHandler.getHandler();
         TwitterHandler twitter = TwitterHandler.getHandler();
@@ -20,9 +22,10 @@ public class Main {
                 break;
             }
         }
-        Set<String> twitterLinks = twitter.getLinks(person.get("twitter")[0]);
-        for (String link : twitterLinks)
-            System.out.println(link);
-        AWebHandler.openWebpage(person.get("twitter")[0]);
+        if(person.get("twitter") != null) {
+            for (String link : twitter.getLinks(person.get("twitter")[0]))
+                System.out.println(link);
+            AWebHandler.openWebpage(person.get("twitter")[0]);
+        }
     }
 }

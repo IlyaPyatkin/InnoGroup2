@@ -5,6 +5,8 @@ public class Person {
     private HashMap<String, LinkedList<String>> attributes = new HashMap<String, LinkedList<String>>();
 
     public String[] get(String attr) {
+        if(!attributes.containsKey(attr))
+            return null;
         LinkedList<String> list = attributes.get(attr);
         return list.toArray(new String[list.size()]);
     }
