@@ -6,26 +6,38 @@ public class Main {
         Person person = new Person();
         Scanner sc = new Scanner(System.in);
         System.out.println("\nEnter name or login of who you're looking for:");
-        String search;
-        search= sc.nextLine();
+        String search = sc.nextLine();
         sc.close();
-        //search = "Alberto Sillitti";
 
         GoogleHandler google = GoogleHandler.getHandler();
         TwitterHandler twitter = TwitterHandler.getHandler();
-        Set<String> result = google.getData(search, 5, "twitter.com");
+        FacebookHandler facebook = FacebookHandler.getHandler();
+
+        Set<String> result;
+        result = google.getData(search, 5, "twitter.com");
         for (String str : result) {
-            if(twitter.isProfileUrl(str)) {
+            if (twitter.isProfileUrl(str)) {
                 person.add("twitter", str);
                 person.add("nick", twitter.getUsername(str));
                 person.add("name", twitter.getName(str));
                 break;
             }
         }
-        if(person.get("twitter") != null) {
+        if (person.get("twitter") != null) {
             for (String link : twitter.getLinks(person.get("twitter")[0]))
-                System.out.println(link);
+                AWebHandler.openWebpage(link);
             AWebHandler.openWebpage(person.get("twitter")[0]);
+        }
+
+        result = google.getData(search, 5, "facebook.com");
+        for (String str : result) {
+            if (facebook.isProfileUrl(str)) {
+                person.add("facebook", str);
+                break;
+            }
+        }
+        if (person.get("facebook") != null) {
+            AWebHandler.openWebpage(person.get("facebook")[0]);
         }
     }
 }

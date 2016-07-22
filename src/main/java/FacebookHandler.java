@@ -1,21 +1,17 @@
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.util.HashSet;
-import java.util.Set;
+public class FacebookHandler extends AWebHandler {
+    private static FacebookHandler obj = new FacebookHandler();
 
-public class TwitterHandler extends AWebHandler {
-    private static TwitterHandler obj = new TwitterHandler();
-
-    public static TwitterHandler getHandler() {
+    public static FacebookHandler getHandler() {
         return obj;
     }
 
     public String getUsername(String url) {
         String[] tokens = url.split("/");
         for (int i = 0; i < tokens.length; i++) {
-            if (tokens[i].equalsIgnoreCase("twitter.com")) {
+            if (tokens[i].equalsIgnoreCase("www.facebook.com")) {
                 if (++i < tokens.length)
                     return tokens[i];
                 break;
@@ -27,7 +23,7 @@ public class TwitterHandler extends AWebHandler {
     public boolean isProfileUrl(String url) {
         String[] tokens = url.split("/");
         for (int i = 0; i < tokens.length; i++) {
-            if (tokens[i].equalsIgnoreCase("twitter.com")) {
+            if (tokens[i].equalsIgnoreCase("www.facebook.com") || tokens[i].equalsIgnoreCase("it-it.facebook.com")) {
                 if (i + 2 < tokens.length)
                     break;
                 if (i + 1 < tokens.length)
@@ -42,20 +38,7 @@ public class TwitterHandler extends AWebHandler {
         Document doc = webRequest(url);
         if (doc == null)
             return null;
-        Element name = doc.select("a.ProfileHeaderCard-nameLink").first();
+        Element name = doc.select("a._8_2").first();
         return name.text();
-    }
-
-    public Set<String> getLinks(String url) {
-        Set<String> result = new HashSet<String>();
-        Document doc = webRequest(url);
-        if (doc == null)
-            return null;
-        Elements links = doc.select("div.ProfileHeaderCard");
-        links = links.select("a");
-        for (Element link : links)
-            if (getDomainName(link.attr("href")).equals("t.co"))
-                result.add(link.text());
-        return result;
     }
 }
